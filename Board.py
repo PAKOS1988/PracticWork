@@ -140,7 +140,7 @@ def products_board_for_del():
 
 def open_site_kb():
     kbi = InlineKeyboardMarkup()
-    btn1 = InlineKeyboardButton('Open site', web_app=WebAppInfo(url='https://pakos1988.github.io/html_pages/'))
+    btn1 = InlineKeyboardButton('Open site', web_app=WebAppInfo(url='https://pakos1988.github.io/PracticWork/'))
     kbi.add(btn1)
 
     return kbi

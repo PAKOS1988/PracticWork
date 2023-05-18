@@ -1,3 +1,5 @@
+import webbrowser
+
 import DB
 from CREATEBOT import *
 from aiogram import executor
@@ -33,6 +35,12 @@ async def start_cmd(message):
     else:
         await message.answer(f'{start_lable}\nГлавное меню', reply_markup = newclient())
         await New_user.change_task.set()
+
+
+@dp.message_handler(commands=['menu'], state='*')
+async def get_location(message: types.Message):
+
+        await bot.send_message(message.from_user.id,'Открыть сайт',reply_markup=open_site_kb())
 
 @dp.message_handler(state=New_user.change_task)
 async def get_name(message, state=New_user.change_task):
@@ -385,10 +393,7 @@ async def get_location(message, state=RegistrationAdmins.get_post_admins):
         await message.answer('Ой, что-то пошло не так, попробуйте снова!')
         await RegistrationAdmins.get_post_admins.set()
 
-@dp.message_handler(commands=['menu'], state='*')
-async def get_location(message: types.Message):
 
-        await message.answer('Сайт', reply_markup=open_site_kb())
 
 
 

@@ -1,7 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+$card-space: 3px;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  background-image: radial-gradient(
+    hsl(216deg 50% 47%) 30%,
+    hsl(216deg 57% 33%)
+  );
+}
+
+section {
+  --card-width: min(200px, 20vw);
+  display: flex;
+  align-items: center;
+  perspective: 1000px;
+  width: calc(4 * var(--card-width));
+  aspect-ratio: 16/9;
+}
+
+section,
+.card,
+.wrapper,
+.content {
+  transform-style: preserve-3d;
+}
+
+.card {
+  --duration: 1200ms;
+  position: absolute;
+  width: var(--card-width);
+  aspect-ratio: 20/29;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background-color: transparent;
+  border-radius: 8px;
+  transition: all 200ms;
+  transform: rotateX(60deg);
+  pointer-events: none;
+
+  @each $i in (1, 2, 3) {
+    &:nth-child(#{$i}) {
+      transform: rotateX(60deg) translateZ($i * $card-space);
+    }
+  }
+}
+
+.wrapper {
+  pointer-events: initial;
+  display: block;
+  position: relative;
+  height: 100%;
+  transition: all var(--duration) ease-out;
+  transform-origin: 200% 50%;
+}
+
+.content {
+  display: block;
+  height: 100%;
+  transition: all var(--duration);
+}
+
+.face {
+  transition: transform calc(var(--duration) * 3 / 4);
+  transition-delay: calc(var(--duration) / 6);
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-color: white;
+}
+
+.front {
+  transform: rotateZ(0.5turn) rotateY(-0.5turn);
+  border-width: 1px 0px;
+  border-color: black;
+  border-style: solid;
+
+  .card:nth-of-type(1) & {
+    background-image: url("http://g02.a.alicdn.com/kf/HTB11sV5GVXXXXcRXFXXq6xXFXXXD/116412799/HTB11sV5GVXXXXcRXFXXq6xXFXXXD.jpg");
+  }
+  .card:nth-of-type(2) & {
+    background-image: url("https://revitsport.ru/wa-data/public/shop/products/69/02/269/images/1211/1211.750x0.jpg");
+  }
+  .card:nth-of-type(3) & {
+    background-image: url("https://img.favpng.com/0/14/25/jeans-slim-fit-pants-levi-strauss-co-denim-boyfriend-png-favpng-CBThhS9cxr3kEZLABVU4vcrnT.jpg");
+  }
+}
+
+.back {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkKnlurWcUYrlDbGvf8IUz6rLX7oX1hHt7FW_6e4vNOwFfPhmPURXxGK45qVAqW7dtxsY&usqp=CAU");
+  border: 1px solid black;
+}
+
+.card.flipped {
+  @each $i in (1, 2, 3) {
+    &:nth-child(#{$i}) {
+      transform: rotateX(60deg) translateZ((4 - $i) * $card-space);
+    }
+  }
+
+  .wrapper {
+    transform: rotateY(0.5turn);
+  }
+
+  .content {
+    transform: rotateX(-0.5turn) rotateY(1.5turn);
+  }
+}
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SPRINGWATER</title>
+</head>
+<body>
+
 <section>
   <button class="card" onclick="this.classList.toggle('flipped')">
     <span class="wrapper"><span class="content">
         <span class="face back"></span>
+
         <span class="face front"></span>
       </span>
     </span>
@@ -21,3 +152,9 @@
     </span>
   </button>
 </section>
+
+<div>
+        <b>Приветствую, выберите продукт</b>
+    </div>
+</body>
+</html>
